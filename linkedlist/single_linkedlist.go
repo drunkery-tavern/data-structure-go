@@ -60,16 +60,16 @@ func (l *SingleLinkedList) AddLast(v interface{}) {
 }
 
 // AddByIndex 指定位置插入
-func (l *SingleLinkedList) AddByIndex(v interface{}, index uint) error {
+func (l *SingleLinkedList) AddByIndex(v interface{}, index int) error {
 	//索引越界
-	if index >= uint(l.len) {
+	if index < 0 || index >= l.len {
 		return errors.New("index out of bounds")
 	}
 	if index == 0 {
 		l.AddFirst(v)
 		return nil
 	}
-	if index == uint(l.len) {
+	if index == l.len {
 		l.AddLast(v)
 		return nil
 	}
@@ -77,7 +77,7 @@ func (l *SingleLinkedList) AddByIndex(v interface{}, index uint) error {
 	index -= 1
 	prev := l.header
 	for i := 0; i < l.len; i++ {
-		if uint(i) == index {
+		if i == index {
 			node := &Node{Data: v, next: nil}
 			node.next = prev.next
 			prev.next = node
@@ -86,7 +86,7 @@ func (l *SingleLinkedList) AddByIndex(v interface{}, index uint) error {
 		}
 		prev = prev.next
 	}
-	return nil
+	return errors.New("add node error")
 }
 
 // GetFirst 获取头节点
@@ -99,6 +99,83 @@ func (l *SingleLinkedList) GetLast() *Node {
 	return l.tail
 }
 
+// GetByIndex 根据索引获取值
+func (l *SingleLinkedList) GetByIndex(index int) interface{} {
+	//索引越界
+	if index < 0 || index >= l.len {
+		return errors.New("index out of bounds")
+	}
+	if index == 0 {
+		return l.GetFirst().Data
+	}
+	if index == l.len {
+		return l.GetLast().Data
+	}
+	current := l.header
+	for i := 0; i < l.len; i++ {
+		if i == index {
+			return current.Data
+		}
+		current = current.next
+	}
+	return nil
+}
+
+// RemoveFirst 移除头结点
+func (l *SingleLinkedList) RemoveFirst() interface{} {
+	if l.len == 0 {
+		return nil
+	}
+	data := l.header.Data
+	l.header = l.header.next
+	l.len--
+	return data
+}
+
+// RemoveLast 移除尾节点
+func (l *SingleLinkedList) RemoveLast() interface{} {
+	if l.len == 0 {
+		return nil
+	}
+	data := l.tail.Data
+	current := l.header
+	for i := 0; i < l.len-1; i++ {
+		current = current.next
+	}
+	current.next = nil
+	l.tail = current
+	l.len--
+	return data
+}
+
+// RemoveByIndex 根据索引移除节点
+func (l *SingleLinkedList) RemoveByIndex(index int) interface{} {
+	if l.len == 0 {
+		return nil
+	}
+	//索引越界
+	if index < 0 || index >= l.len {
+		return errors.New("index out of bounds")
+	}
+	if index == 0 {
+		return l.RemoveFirst()
+	}
+	if index == l.len-1 {
+		return l.RemoveLast()
+	}
+
+	prev := l.header
+	for i := 1; i < index; i++ {
+		prev = prev.next
+	}
+	current := prev.next
+	prev.next = prev.next.next
+	current.next = nil
+	l.len--
+	return current.Data
+}
+
+// ToSlice 转换成切片
 func (l *SingleLinkedList) ToSlice() (res []interface{}) {
 	current := l.header
 	for i := 0; i < l.len; i++ {

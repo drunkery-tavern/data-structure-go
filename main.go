@@ -24,4 +24,12 @@ func main() {
 	}
 
 	log.Println(list.ToSlice())
+
+	log.Println(list.GetByIndex(1))
+	last := list.RemoveLast()
+	log.Println(last)
+	log.Println(list.ToSlice())
+
+	log.Println(list.RemoveByIndex(1))
+	log.Println(list.ToSlice())
 }
