@@ -1,15 +1,19 @@
-package linkedlist
+package doubly_linkedlist
+
+import (
+	"errors"
+)
 
 type DoublyLinkedList struct {
-	header *DoublyNode
-	tail   *DoublyNode
+	header *Node
+	tail   *Node
 	len    int
 }
 
-type DoublyNode struct {
+type Node struct {
 	Data interface{}
-	next *DoublyNode
-	prev *DoublyNode
+	next *Node
+	prev *Node
 }
 
 func (*DoublyLinkedList) NewDoublyLinkedList() *DoublyLinkedList {
@@ -26,7 +30,7 @@ func (l *DoublyLinkedList) Len() int {
 
 func (l *DoublyLinkedList) AddFirst(v interface{}) {
 	defer func() { l.len++ }()
-	node := &DoublyNode{
+	node := &Node{
 		Data: v,
 		next: nil,
 		prev: nil,
@@ -42,7 +46,7 @@ func (l *DoublyLinkedList) AddFirst(v interface{}) {
 
 func (l *DoublyLinkedList) AddLast(v interface{}) {
 	defer func() { l.len++ }()
-	node := &DoublyNode{
+	node := &Node{
 		Data: v,
 		next: nil,
 		prev: nil,
@@ -58,15 +62,61 @@ func (l *DoublyLinkedList) AddLast(v interface{}) {
 }
 
 func (l *DoublyLinkedList) AddByIndex(v interface{}, index int) error {
-	panic("implement me")
+	//索引越界
+	if index < 0 || index >= l.len {
+		return errors.New("index out of bounds")
+	}
+	if index == 0 {
+		l.AddFirst(v)
+		return nil
+	}
+	if index == l.len {
+		l.AddLast(v)
+		return nil
+	}
+	//查找插入位置的相关节点
+	mid := l.len / 2
+	current := &Node{}
+	if index <= mid {
+		//从头结点开始遍历
+		current = l.header
+		for i := 1; i < mid; i++ {
+			if i == index {
+				break
+			}
+			current = current.next
+		}
+	}
+	if index > mid {
+		//从尾节点开始遍历
+		current = l.tail
+		for i := l.len; i > mid; i-- {
+			if i == index {
+				break
+			}
+			current = current.prev
+		}
+	}
+	newNode := &Node{
+		Data: v,
+		next: nil,
+		prev: nil,
+	}
+	next := current.next
+	current.next = newNode
+	newNode.prev = current
+	newNode.next = next
+	next.prev = newNode
+	l.len++
+	return nil
 }
 
 func (l *DoublyLinkedList) GetFirst() *Node {
-	panic("implement me")
+	return l.header
 }
 
 func (l *DoublyLinkedList) GetLast() *Node {
-	panic("implement me")
+	return l.tail
 }
 
 func (l *DoublyLinkedList) GetByIndex(index int) interface{} {
