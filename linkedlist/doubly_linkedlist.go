@@ -41,7 +41,20 @@ func (l *DoublyLinkedList) AddFirst(v interface{}) {
 }
 
 func (l *DoublyLinkedList) AddLast(v interface{}) {
-	panic("implement me")
+	defer func() { l.len++ }()
+	node := &DoublyNode{
+		Data: v,
+		next: nil,
+		prev: nil,
+	}
+
+	if l.len == 0 {
+		l.header = node
+	} else {
+		l.tail.next = node
+	}
+	node.prev = l.tail
+	l.tail = node
 }
 
 func (l *DoublyLinkedList) AddByIndex(v interface{}, index int) error {
@@ -73,5 +86,10 @@ func (l *DoublyLinkedList) RemoveByIndex(index int) interface{} {
 }
 
 func (l *DoublyLinkedList) ToSlice() (res []interface{}) {
-	panic("implement me")
+	current := l.header
+	for i := 0; i < l.len; i++ {
+		res = append(res, current.Data)
+		current = current.next
+	}
+	return
 }
