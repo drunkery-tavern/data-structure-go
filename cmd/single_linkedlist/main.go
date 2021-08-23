@@ -1,13 +1,12 @@
 package main
 
 import (
-	"data-structure-go/linkedlist/single_linkedlist"
+	"data-structure-go/linkedlist"
 	"log"
 )
 
 func main() {
-	linkedList := single_linkedlist.SingleLinkedList{}
-	list := linkedList.NewSingleLinkedList()
+	list := linkedlist.NewSingleLinkedList()
 	list.AddFirst(1)
 	list.AddLast(3)
 	list.AddLast(7)

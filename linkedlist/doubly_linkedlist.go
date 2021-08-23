@@ -1,4 +1,4 @@
-package doubly_linkedlist
+package linkedlist
 
 import (
 	"errors"
@@ -34,7 +34,7 @@ type (
 	}
 )
 
-func (*DoublyLinkedList) NewDoublyLinkedList() *DoublyLinkedList {
+func NewDoublyLinkedList() *DoublyLinkedList {
 	return &DoublyLinkedList{
 		header: nil,
 		tail:   nil,

@@ -23,7 +23,7 @@ type (
 	}
 )
 
-func (s *Stack) NewStack() *Stack {
+func NewStack() *Stack {
 	return &Stack{
 		top: nil,
 		len: 0,
@@ -74,10 +74,10 @@ func (s *Stack) ToSlice() (res []interface{}) {
 	}
 	current := s.top
 	for {
+		res = append(res, current.data)
 		if current.next == nil {
 			break
 		}
-		res = append(res, current.data)
 		current = current.next
 	}
 	return

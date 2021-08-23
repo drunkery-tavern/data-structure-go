@@ -1,14 +1,13 @@
 package main
 
 import (
-	"data-structure-go/linkedlist/doubly_linkedlist"
+	"data-structure-go/linkedlist"
 	"log"
 )
 
 func main() {
 
-	linkedList := doubly_linkedlist.DoublyLinkedList{}
-	list := linkedList.NewDoublyLinkedList()
+	list := linkedlist.NewDoublyLinkedList()
 	list.AddFirst(298)
 	list.AddFirst(4344444)
 	log.Println(list.ToSlice())

@@ -1,17 +1,17 @@
-package single_linkedlist
+package linkedlist
 
 import (
 	"errors"
 	"sync"
 )
 
-type IList interface {
+type ISingleList interface {
 	Len() int
 	AddFirst(v interface{})
 	AddLast(v interface{})
 	AddByIndex(v interface{}, index int) error
-	GetFirst() *Node
-	GetLast() *Node
+	GetFirst() *SingleNode
+	GetLast() *SingleNode
 	GetByIndex(index int) interface{}
 	RemoveFirst() interface{}
 	RemoveLast() interface{}
@@ -21,20 +21,20 @@ type IList interface {
 
 type (
 	SingleLinkedList struct {
-		header *Node
-		tail   *Node
+		header *SingleNode
+		tail   *SingleNode
 		len    int
 		lock   sync.Mutex
 	}
 
-	Node struct {
+	SingleNode struct {
 		data interface{}
-		next *Node
+		next *SingleNode
 	}
 )
 
 // NewSingleLinkedList 初始化
-func (*SingleLinkedList) NewSingleLinkedList() *SingleLinkedList {
+func NewSingleLinkedList() *SingleLinkedList {
 	return &SingleLinkedList{
 		header: nil,
 		tail:   nil,
@@ -52,7 +52,7 @@ func (l *SingleLinkedList) AddFirst(v interface{}) {
 	l.lock.Lock()
 	defer l.lock.Unlock()
 	defer func() { l.len++ }()
-	node := &Node{
+	node := &SingleNode{
 		data: v,
 		next: nil,
 	}
@@ -70,7 +70,7 @@ func (l *SingleLinkedList) AddLast(v interface{}) {
 	l.lock.Lock()
 	defer l.lock.Unlock()
 	defer func() { l.len++ }()
-	node := &Node{
+	node := &SingleNode{
 		data: v,
 		next: nil,
 	}
@@ -102,7 +102,7 @@ func (l *SingleLinkedList) AddByIndex(v interface{}, index int) error {
 	prev := l.header
 	for i := 0; i < l.len; i++ {
 		if i == index {
-			node := &Node{data: v, next: nil}
+			node := &SingleNode{data: v, next: nil}
 			node.next = prev.next
 			prev.next = node
 			l.len++
@@ -114,12 +114,12 @@ func (l *SingleLinkedList) AddByIndex(v interface{}, index int) error {
 }
 
 // GetFirst 获取头节点
-func (l *SingleLinkedList) GetFirst() *Node {
+func (l *SingleLinkedList) GetFirst() *SingleNode {
 	return l.header
 }
 
 // GetLast 获取尾节点
-func (l *SingleLinkedList) GetLast() *Node {
+func (l *SingleLinkedList) GetLast() *SingleNode {
 	return l.tail
 }
 
