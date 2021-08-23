@@ -191,6 +191,9 @@ func (l *SingleLinkedList) RemoveByIndex(index int) interface{} {
 
 // ToSlice 转换成切片
 func (l *SingleLinkedList) ToSlice() (res []interface{}) {
+	if l.len == 0 {
+		return
+	}
 	current := l.header
 	for i := 0; i < l.len; i++ {
 		res = append(res, current.data)

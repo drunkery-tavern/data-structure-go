@@ -192,7 +192,7 @@ func (l *DoublyLinkedList) RemoveByIndex(index int) interface{} {
 	if index == l.len-1 {
 		return l.RemoveLast()
 	}
-
+	//可使用二分法减少循环次数
 	current := l.header
 	for i := 0; i < l.len; i++ {
 		if i == index {
@@ -210,6 +210,9 @@ func (l *DoublyLinkedList) RemoveByIndex(index int) interface{} {
 }
 
 func (l *DoublyLinkedList) ToSlice() (res []interface{}) {
+	if l.len == 0 {
+		return
+	}
 	current := l.header
 	for i := 0; i < l.len; i++ {
 		res = append(res, current.data)
