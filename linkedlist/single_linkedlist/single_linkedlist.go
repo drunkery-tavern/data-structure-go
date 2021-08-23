@@ -25,7 +25,7 @@ type SingleLinkedList struct {
 }
 
 type Node struct {
-	Data interface{}
+	data interface{}
 	next *Node
 }
 
@@ -47,7 +47,7 @@ func (l *SingleLinkedList) Len() int {
 func (l *SingleLinkedList) AddFirst(v interface{}) {
 	defer func() { l.len++ }()
 	node := &Node{
-		Data: v,
+		data: v,
 		next: nil,
 	}
 
@@ -63,7 +63,7 @@ func (l *SingleLinkedList) AddFirst(v interface{}) {
 func (l *SingleLinkedList) AddLast(v interface{}) {
 	defer func() { l.len++ }()
 	node := &Node{
-		Data: v,
+		data: v,
 		next: nil,
 	}
 	if l.len == 0 {
@@ -92,7 +92,7 @@ func (l *SingleLinkedList) AddByIndex(v interface{}, index int) error {
 	prev := l.header
 	for i := 0; i < l.len; i++ {
 		if i == index {
-			node := &Node{Data: v, next: nil}
+			node := &Node{data: v, next: nil}
 			node.next = prev.next
 			prev.next = node
 			l.len++
@@ -120,15 +120,15 @@ func (l *SingleLinkedList) GetByIndex(index int) interface{} {
 		return errors.New("index out of bounds")
 	}
 	if index == 0 {
-		return l.GetFirst().Data
+		return l.GetFirst().data
 	}
 	if index == l.len {
-		return l.GetLast().Data
+		return l.GetLast().data
 	}
 	current := l.header
 	for i := 0; i < l.len; i++ {
 		if i == index {
-			return current.Data
+			return current.data
 		}
 		current = current.next
 	}
@@ -140,7 +140,7 @@ func (l *SingleLinkedList) RemoveFirst() interface{} {
 	if l.len == 0 {
 		return nil
 	}
-	data := l.header.Data
+	data := l.header.data
 	l.header = l.header.next
 	l.len--
 	return data
@@ -151,7 +151,7 @@ func (l *SingleLinkedList) RemoveLast() interface{} {
 	if l.len == 0 {
 		return nil
 	}
-	data := l.tail.Data
+	data := l.tail.data
 	current := l.header
 	for i := 0; i < l.len-1; i++ {
 		current = current.next
@@ -186,14 +186,14 @@ func (l *SingleLinkedList) RemoveByIndex(index int) interface{} {
 	prev.next = prev.next.next
 	current.next = nil
 	l.len--
-	return current.Data
+	return current.data
 }
 
 // ToSlice 转换成切片
 func (l *SingleLinkedList) ToSlice() (res []interface{}) {
 	current := l.header
 	for i := 0; i < l.len; i++ {
-		res = append(res, current.Data)
+		res = append(res, current.data)
 		current = current.next
 	}
 	return

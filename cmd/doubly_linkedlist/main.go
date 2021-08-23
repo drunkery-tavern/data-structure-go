@@ -29,4 +29,17 @@ func main() {
 	}
 
 	log.Println(list.ToSlice())
+
+	log.Println(list.GetByIndex(3))
+
+	log.Println(list.RemoveFirst())
+
+	log.Println(list.ToSlice())
+
+	log.Println(list.RemoveLast())
+
+	log.Println(list.ToSlice())
+
+	log.Println(list.RemoveByIndex(1))
+	log.Println(list.ToSlice())
 }

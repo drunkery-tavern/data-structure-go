@@ -25,7 +25,7 @@ type DoublyLinkedList struct {
 }
 
 type Node struct {
-	Data interface{}
+	data interface{}
 	next *Node
 	prev *Node
 }
@@ -45,7 +45,7 @@ func (l *DoublyLinkedList) Len() int {
 func (l *DoublyLinkedList) AddFirst(v interface{}) {
 	defer func() { l.len++ }()
 	node := &Node{
-		Data: v,
+		data: v,
 		next: nil,
 		prev: nil,
 	}
@@ -61,7 +61,7 @@ func (l *DoublyLinkedList) AddFirst(v interface{}) {
 func (l *DoublyLinkedList) AddLast(v interface{}) {
 	defer func() { l.len++ }()
 	node := &Node{
-		Data: v,
+		data: v,
 		next: nil,
 		prev: nil,
 	}
@@ -112,7 +112,7 @@ func (l *DoublyLinkedList) AddByIndex(v interface{}, index int) error {
 		}
 	}
 	newNode := &Node{
-		Data: v,
+		data: v,
 		next: nil,
 		prev: nil,
 	}
@@ -134,25 +134,85 @@ func (l *DoublyLinkedList) GetLast() *Node {
 }
 
 func (l *DoublyLinkedList) GetByIndex(index int) interface{} {
-	panic("implement me")
+	//索引越界
+	if index < 0 || index >= l.len {
+		return errors.New("index out of bounds")
+	}
+	if index == 0 {
+		return l.GetFirst().data
+	}
+	if index == l.len {
+		return l.GetLast().data
+	}
+	current := l.header
+	for i := 0; i < l.len; i++ {
+		if i == index {
+			return current.data
+		}
+		current = current.next
+	}
+	return nil
 }
 
 func (l *DoublyLinkedList) RemoveFirst() interface{} {
-	panic("implement me")
+	if l.len == 0 {
+		return nil
+	}
+	header := l.header
+	header.next.prev = nil
+	l.header = header.next
+	header.next = nil
+	l.len--
+	return header.data
 }
 
 func (l *DoublyLinkedList) RemoveLast() interface{} {
-	panic("implement me")
+	if l.len == 0 {
+		return nil
+	}
+	tail := l.tail
+	tail.prev.next = nil
+	l.tail = tail.prev
+	tail.prev = nil
+	l.len--
+	return tail.data
 }
 
 func (l *DoublyLinkedList) RemoveByIndex(index int) interface{} {
-	panic("implement me")
+	if l.len == 0 {
+		return nil
+	}
+	//索引越界
+	if index < 0 || index >= l.len {
+		return errors.New("index out of bounds")
+	}
+	if index == 0 {
+		return l.RemoveFirst()
+	}
+	if index == l.len-1 {
+		return l.RemoveLast()
+	}
+
+	current := l.header
+	for i := 0; i < l.len; i++ {
+		if i == index {
+			current.prev.next = current.next
+			current.next.prev = current.prev
+			current.prev = nil
+			current.next = nil
+			l.len--
+			return current.data
+		}
+		current = current.next
+	}
+
+	return nil
 }
 
 func (l *DoublyLinkedList) ToSlice() (res []interface{}) {
 	current := l.header
 	for i := 0; i < l.len; i++ {
-		res = append(res, current.Data)
+		res = append(res, current.data)
 		current = current.next
 	}
 	return
