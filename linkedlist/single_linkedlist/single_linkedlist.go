@@ -2,6 +2,7 @@ package single_linkedlist
 
 import (
 	"errors"
+	"sync"
 )
 
 type IList interface {
@@ -23,6 +24,7 @@ type (
 		header *Node
 		tail   *Node
 		len    int
+		lock   sync.Mutex
 	}
 
 	Node struct {
@@ -47,6 +49,8 @@ func (l *SingleLinkedList) Len() int {
 
 // AddFirst 头部插入
 func (l *SingleLinkedList) AddFirst(v interface{}) {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	defer func() { l.len++ }()
 	node := &Node{
 		data: v,
@@ -63,6 +67,8 @@ func (l *SingleLinkedList) AddFirst(v interface{}) {
 
 // AddLast 尾部插入
 func (l *SingleLinkedList) AddLast(v interface{}) {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	defer func() { l.len++ }()
 	node := &Node{
 		data: v,
@@ -77,6 +83,8 @@ func (l *SingleLinkedList) AddLast(v interface{}) {
 
 // AddByIndex 指定位置插入
 func (l *SingleLinkedList) AddByIndex(v interface{}, index int) error {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	//索引越界
 	if index < 0 || index >= l.len {
 		return errors.New("index out of bounds")
@@ -139,6 +147,8 @@ func (l *SingleLinkedList) GetByIndex(index int) interface{} {
 
 // RemoveFirst 移除头结点
 func (l *SingleLinkedList) RemoveFirst() interface{} {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	if l.len == 0 {
 		return nil
 	}
@@ -150,6 +160,8 @@ func (l *SingleLinkedList) RemoveFirst() interface{} {
 
 // RemoveLast 移除尾节点
 func (l *SingleLinkedList) RemoveLast() interface{} {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	if l.len == 0 {
 		return nil
 	}
@@ -166,6 +178,8 @@ func (l *SingleLinkedList) RemoveLast() interface{} {
 
 // RemoveByIndex 根据索引移除节点
 func (l *SingleLinkedList) RemoveByIndex(index int) interface{} {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	if l.len == 0 {
 		return nil
 	}

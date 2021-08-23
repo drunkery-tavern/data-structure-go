@@ -2,6 +2,7 @@ package doubly_linkedlist
 
 import (
 	"errors"
+	"sync"
 )
 
 type IList interface {
@@ -23,6 +24,7 @@ type (
 		header *Node
 		tail   *Node
 		len    int
+		lock   sync.Mutex
 	}
 
 	Node struct {
@@ -45,6 +47,8 @@ func (l *DoublyLinkedList) Len() int {
 }
 
 func (l *DoublyLinkedList) AddFirst(v interface{}) {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	defer func() { l.len++ }()
 	node := &Node{
 		data: v,
@@ -61,6 +65,8 @@ func (l *DoublyLinkedList) AddFirst(v interface{}) {
 }
 
 func (l *DoublyLinkedList) AddLast(v interface{}) {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	defer func() { l.len++ }()
 	node := &Node{
 		data: v,
@@ -78,6 +84,8 @@ func (l *DoublyLinkedList) AddLast(v interface{}) {
 }
 
 func (l *DoublyLinkedList) AddByIndex(v interface{}, index int) error {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	//索引越界
 	if index < 0 || index >= l.len {
 		return errors.New("index out of bounds")
@@ -157,6 +165,8 @@ func (l *DoublyLinkedList) GetByIndex(index int) interface{} {
 }
 
 func (l *DoublyLinkedList) RemoveFirst() interface{} {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	if l.len == 0 {
 		return nil
 	}
@@ -169,6 +179,8 @@ func (l *DoublyLinkedList) RemoveFirst() interface{} {
 }
 
 func (l *DoublyLinkedList) RemoveLast() interface{} {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	if l.len == 0 {
 		return nil
 	}
@@ -181,6 +193,8 @@ func (l *DoublyLinkedList) RemoveLast() interface{} {
 }
 
 func (l *DoublyLinkedList) RemoveByIndex(index int) interface{} {
+	l.lock.Lock()
+	defer l.lock.Unlock()
 	if l.len == 0 {
 		return nil
 	}

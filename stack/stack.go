@@ -1,5 +1,7 @@
 package stack
 
+import "sync"
+
 type IStack interface {
 	Len() int
 	Push(v interface{})
@@ -10,8 +12,9 @@ type IStack interface {
 
 type (
 	Stack struct {
-		top *Node
-		len int
+		top  *Node
+		len  int
+		lock sync.Mutex
 	}
 
 	Node struct {
@@ -33,6 +36,8 @@ func (s *Stack) Len() int {
 
 // Push 进栈
 func (s *Stack) Push(v interface{}) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 	node := &Node{
 		data: v,
 		next: s.top,
@@ -43,6 +48,8 @@ func (s *Stack) Push(v interface{}) {
 
 // Pop 出栈
 func (s *Stack) Pop() interface{} {
+	s.lock.Lock()
+	defer s.lock.Unlock()
 	if s.len == 0 {
 		return nil
 	}
