@@ -18,17 +18,19 @@ type IList interface {
 	ToSlice() (res []interface{})
 }
 
-type DoublyLinkedList struct {
-	header *Node
-	tail   *Node
-	len    int
-}
+type (
+	DoublyLinkedList struct {
+		header *Node
+		tail   *Node
+		len    int
+	}
 
-type Node struct {
-	data interface{}
-	next *Node
-	prev *Node
-}
+	Node struct {
+		data interface{}
+		next *Node
+		prev *Node
+	}
+)
 
 func (*DoublyLinkedList) NewDoublyLinkedList() *DoublyLinkedList {
 	return &DoublyLinkedList{

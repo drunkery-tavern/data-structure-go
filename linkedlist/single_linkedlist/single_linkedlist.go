@@ -18,16 +18,18 @@ type IList interface {
 	ToSlice() (res []interface{})
 }
 
-type SingleLinkedList struct {
-	header *Node
-	tail   *Node
-	len    int
-}
+type (
+	SingleLinkedList struct {
+		header *Node
+		tail   *Node
+		len    int
+	}
 
-type Node struct {
-	data interface{}
-	next *Node
-}
+	Node struct {
+		data interface{}
+		next *Node
+	}
+)
 
 // NewSingleLinkedList 初始化
 func (*SingleLinkedList) NewSingleLinkedList() *SingleLinkedList {
