@@ -7,8 +7,11 @@ type Node struct {
 }
 
 type BinaryTree struct {
-	root     *Node
-	children []*Node
-	height   int
-	depth    int
+	root   *Node
+	height int
+	depth  int
+}
+
+func NewRoot(node *Node) *BinaryTree {
+	return &BinaryTree{root: node, height: 0, depth: 0}
 }
