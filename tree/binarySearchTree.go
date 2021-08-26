@@ -34,35 +34,35 @@ func (t *BinarySearchTree) Search(key uint32) interface{} {
 	return nil
 }
 
-func (t *BinarySearchTree) Insert(i interface{}) interface{} {
+func (t *BinarySearchTree) Insert(n interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Delete(u uint32) interface{} {
+func (t *BinarySearchTree) Delete(key uint32) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Predecessor(i interface{}, i2 interface{}) interface{} {
+func (t *BinarySearchTree) Predecessor(n interface{}, root interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Successor(i interface{}, i2 interface{}) interface{} {
+func (t *BinarySearchTree) Successor(n interface{}, root interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) LeftRotate(i interface{}) interface{} {
+func (t *BinarySearchTree) LeftRotate(n interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) RightRotate(i interface{}) interface{} {
+func (t *BinarySearchTree) RightRotate(n interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Min(i interface{}) interface{} {
+func (t *BinarySearchTree) Min(n interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Max(i interface{}) interface{} {
+func (t *BinarySearchTree) Max(n interface{}) interface{} {
 	panic("implement me")
 }
 
