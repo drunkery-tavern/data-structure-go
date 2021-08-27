@@ -8,7 +8,7 @@ type IBinaryTree interface {
 	IsNil(interface{}) bool
 	Root() interface{}
 	Search(uint32) interface{}
-	Insert(interface{}) interface{}
+	Insert(key uint32, value interface{})
 	Delete(uint32) interface{}
 	Predecessor(interface{}, interface{}) interface{}
 	Successor(interface{}, interface{}) interface{}
