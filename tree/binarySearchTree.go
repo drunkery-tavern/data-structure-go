@@ -45,7 +45,7 @@ func (t *BinarySearchTree) Insert(key uint32, value interface{}) {
 		t.root = node
 	} else {
 		target := t.root
-		for cur := t.root; cur != nil; {
+		for cur := t.root; !t.IsNil(cur); {
 			target = cur
 			if node.Key < cur.Key {
 				cur = cur.left
@@ -82,16 +82,39 @@ func (t *BinarySearchTree) RightRotate(n interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Min(n interface{}) interface{} {
-	panic("implement me")
+func (t *BinarySearchTree) Min() interface{} {
+	current := t.root
+	for current = t.root; current.left != nil; {
+		current = current.left
+	}
+	return current
 }
 
-func (t *BinarySearchTree) Max(n interface{}) interface{} {
-	panic("implement me")
+func (t *BinarySearchTree) Max() interface{} {
+	current := t.root
+	for current = t.root; current.right != nil; {
+		current = current.right
+	}
+	return current
 }
 
 func (t *BinarySearchTree) Root() interface{} {
 	return t.root
+}
+
+// PreOrderTraverse 前序遍历
+func (t *BinarySearchTree) PreOrderTraverse() interface{} {
+	panic("implement me")
+}
+
+// PostOrderTraverse 后序遍历
+func (t *BinarySearchTree) PostOrderTraverse() interface{} {
+	panic("implement me")
+}
+
+// InOrderTraverse 中序遍历
+func (t *BinarySearchTree) InOrderTraverse() interface{} {
+	panic("implement me")
 }
 
 func NewBinarySearchTreeRoot() *BinarySearchTree {

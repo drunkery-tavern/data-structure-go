@@ -14,6 +14,9 @@ type IBinaryTree interface {
 	Successor(interface{}, interface{}) interface{}
 	LeftRotate(interface{}) interface{}
 	RightRotate(interface{}) interface{}
-	Min(interface{}) interface{}
-	Max(interface{}) interface{}
+	Min() interface{}
+	Max() interface{}
+	PreOrderTraverse() interface{}
+	PostOrderTraverse() interface{}
+	InOrderTraverse() interface{}
 }
