@@ -41,11 +41,11 @@ func (t *BinarySearchTree) Insert(key uint32, value interface{}) {
 	node.Key = key
 	node.Value = value
 
-	if t.IsNil(t.root) {
+	if t.root == nil {
 		t.root = node
 	} else {
 		target := t.root
-		for cur := t.root; !t.IsNil(cur); {
+		for cur := t.root; cur != nil; {
 			target = cur
 			if node.Key < cur.Key {
 				cur = cur.left
@@ -102,9 +102,20 @@ func (t *BinarySearchTree) Root() interface{} {
 	return t.root
 }
 
-// PreOrderTraverse 前序遍历
-func (t *BinarySearchTree) PreOrderTraverse() interface{} {
-	panic("implement me")
+// PreOrderTraverse 前序遍历  根节点 -> 左子树 -> 右子树
+func (t *BinarySearchTree) PreOrderTraverse(node interface{}) interface{} {
+	n := node.(*Node)
+	var nodeSlice []*Node
+	if n != nil {
+		nodeSlice = append(nodeSlice, n)
+		if n.left != nil {
+			t.PreOrderTraverse(n.left)
+		}
+		if n.right != nil {
+			t.PreOrderTraverse(n.right)
+		}
+	}
+	return nodeSlice
 }
 
 // PostOrderTraverse 后序遍历
@@ -117,6 +128,6 @@ func (t *BinarySearchTree) InOrderTraverse() interface{} {
 	panic("implement me")
 }
 
-func NewBinarySearchTreeRoot() *BinarySearchTree {
+func NewBinarySearchTree() *BinarySearchTree {
 	return new(BinarySearchTree)
 }
