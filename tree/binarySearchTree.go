@@ -1,6 +1,8 @@
 package tree
 
-import "sync"
+import (
+	"sync"
+)
 
 type Node struct {
 	binaryTreeEntry
@@ -103,16 +105,15 @@ func (t *BinarySearchTree) Root() interface{} {
 }
 
 // PreOrderTraverse 前序遍历  根节点 -> 左子树 -> 右子树
-func (t *BinarySearchTree) PreOrderTraverse(node interface{}) interface{} {
+func (t *BinarySearchTree) PreOrderTraverse(node interface{}, nodeSlice []interface{}) []interface{} {
 	n := node.(*Node)
-	var nodeSlice []*Node
 	if n != nil {
-		nodeSlice = append(nodeSlice, n)
+		nodeSlice = append(nodeSlice, n.Value)
 		if n.left != nil {
-			t.PreOrderTraverse(n.left)
+			nodeSlice = t.PreOrderTraverse(n.left, nodeSlice)
 		}
 		if n.right != nil {
-			t.PreOrderTraverse(n.right)
+			nodeSlice = t.PreOrderTraverse(n.right, nodeSlice)
 		}
 	}
 	return nodeSlice
