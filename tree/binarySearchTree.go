@@ -68,33 +68,61 @@ func (t *BinarySearchTree) Delete(key uint32) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Predecessor(n interface{}, root interface{}) interface{} {
+// Predecessor 获取给定节点的前驱节点
+func (t *BinarySearchTree) Predecessor(node interface{}, root interface{}) interface{} {
+	//（1）该节点有一个左子树，因此该节点的前驱节点是其左子树中最大的孩子.
+	//（2）该节点没有左子树，则沿着该节点的父节点一直往上找，直至父节点的右节点等于该节点，那么这个父节点就是该节点的前驱节点
+	n := node.(*Node)
+	if n == nil {
+		return nil
+	}
+	if n.left != nil {
+		return t.Max(n.left)
+	}
+	cur := n
+	for cur.parent != nil && cur.parent.right != cur {
+		cur = cur.parent
+	}
+	return cur.parent
+}
+
+// Successor 获取给定节点的后继节点
+func (t *BinarySearchTree) Successor(node interface{}, root interface{}) interface{} {
+	//（1）该节点具有一个右子树，则该节点的后继节点是其右子树中最小的孩子.
+	//（2）该节点没有右子树，则沿着该节点的父节点一直往上找，直至父节点的左节点等于该节点，那么这个父节点就是该节点的后继节点
+	n := node.(*Node)
+	if n == nil {
+		return nil
+	}
+	if n.right != nil {
+		return t.Min(n.right)
+	}
+	cur := n
+	for cur.parent != nil && cur.parent.left != cur {
+		cur = cur.parent
+	}
+	return cur.parent
+}
+
+func (t *BinarySearchTree) LeftRotate(node interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) Successor(n interface{}, root interface{}) interface{} {
+func (t *BinarySearchTree) RightRotate(node interface{}) interface{} {
 	panic("implement me")
 }
 
-func (t *BinarySearchTree) LeftRotate(n interface{}) interface{} {
-	panic("implement me")
-}
-
-func (t *BinarySearchTree) RightRotate(n interface{}) interface{} {
-	panic("implement me")
-}
-
-func (t *BinarySearchTree) Min() interface{} {
-	current := t.root
-	for current = t.root; current.left != nil; {
+func (t *BinarySearchTree) Min(node interface{}) interface{} {
+	current := node.(*Node)
+	for current.left != nil {
 		current = current.left
 	}
 	return current
 }
 
-func (t *BinarySearchTree) Max() interface{} {
-	current := t.root
-	for current = t.root; current.right != nil; {
+func (t *BinarySearchTree) Max(node interface{}) interface{} {
+	current := node.(*Node)
+	for current.right != nil {
 		current = current.right
 	}
 	return current

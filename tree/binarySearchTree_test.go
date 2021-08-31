@@ -59,11 +59,15 @@ func TestBinarySearchTree_LeftRotate(t *testing.T) {
 }
 
 func TestBinarySearchTree_Max(t *testing.T) {
-	log.Println(tree.Max())
+	log.Println(tree.Max(tree.root))
+	log.Println(tree.Max(tree.root.left))
+	log.Println(tree.Max(tree.root.right))
 }
 
 func TestBinarySearchTree_Min(t *testing.T) {
-	log.Println(tree.Min())
+	log.Println(tree.Min(tree.root))
+	log.Println(tree.Min(tree.root.left))
+	log.Println(tree.Min(tree.root.right))
 }
 
 func TestBinarySearchTree_PostOrderTraverse(t *testing.T) {
@@ -93,7 +97,9 @@ func TestBinarySearchTree_PreOrderTraverse(t *testing.T) {
 }
 
 func TestBinarySearchTree_Predecessor(t *testing.T) {
-
+	TestBinarySearchTree_InOrderTraverse(t)
+	log.Println(tree.Predecessor(tree.root, tree.root))
+	log.Println(tree.Predecessor(tree.Min(tree.root), tree.root))
 }
 
 func TestBinarySearchTree_RightRotate(t *testing.T) {
@@ -110,5 +116,7 @@ func TestBinarySearchTree_Search(t *testing.T) {
 }
 
 func TestBinarySearchTree_Successor(t *testing.T) {
-
+	TestBinarySearchTree_InOrderTraverse(t)
+	log.Println(tree.Successor(tree.root, tree.root))
+	log.Println(tree.Successor(tree.Max(tree.root), tree.root))
 }
