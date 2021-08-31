@@ -119,14 +119,34 @@ func (t *BinarySearchTree) PreOrderTraverse(node interface{}, nodeSlice []interf
 	return nodeSlice
 }
 
-// PostOrderTraverse 后序遍历
-func (t *BinarySearchTree) PostOrderTraverse() interface{} {
-	panic("implement me")
+// PostOrderTraverse 后序遍历  左子树 —> 右子树 —> 根结点
+func (t *BinarySearchTree) PostOrderTraverse(node interface{}, nodeSlice []interface{}) []interface{} {
+	n := node.(*Node)
+	if n != nil {
+		if n.left != nil {
+			nodeSlice = t.PostOrderTraverse(n.left, nodeSlice)
+		}
+		if n.right != nil {
+			nodeSlice = t.PostOrderTraverse(n.right, nodeSlice)
+		}
+		nodeSlice = append(nodeSlice, n.Value)
+	}
+	return nodeSlice
 }
 
-// InOrderTraverse 中序遍历
-func (t *BinarySearchTree) InOrderTraverse() interface{} {
-	panic("implement me")
+// InOrderTraverse 中序遍历 左子树 —> 根结点 —> 右子树
+func (t *BinarySearchTree) InOrderTraverse(node interface{}, nodeSlice []interface{}) []interface{} {
+	n := node.(*Node)
+	if n != nil {
+		if n.left != nil {
+			nodeSlice = t.InOrderTraverse(n.left, nodeSlice)
+		}
+		nodeSlice = append(nodeSlice, n.Value)
+		if n.right != nil {
+			nodeSlice = t.InOrderTraverse(n.right, nodeSlice)
+		}
+	}
+	return nodeSlice
 }
 
 func NewBinarySearchTree() *BinarySearchTree {

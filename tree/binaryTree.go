@@ -17,6 +17,6 @@ type IBinaryTree interface {
 	Min() interface{}
 	Max() interface{}
 	PreOrderTraverse(interface{}, []interface{}) []interface{}
-	PostOrderTraverse() interface{}
-	InOrderTraverse() interface{}
+	PostOrderTraverse(interface{}, []interface{}) []interface{}
+	InOrderTraverse(interface{}, []interface{}) []interface{}
 }
