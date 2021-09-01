@@ -22,7 +22,12 @@ func init() {
 }
 
 func TestBinarySearchTree_Delete(t *testing.T) {
-
+	log.Println(tree.Delete(1))
+	log.Println(tree.Delete(10))
+	log.Println(tree.Delete(6))
+	TestBinarySearchTree_InOrderTraverse(t)
+	TestBinarySearchTree_PreOrderTraverse(t)
+	TestBinarySearchTree_PostOrderTraverse(t)
 }
 
 func TestBinarySearchTree_InOrderTraverse(t *testing.T) {

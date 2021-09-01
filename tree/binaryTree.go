@@ -1,7 +1,7 @@
 package tree
 
 type binaryTreeEntry struct {
-	Key   uint32      //中序遍历的节点序号
+	Key   uint32
 	Value interface{} //节点存储的值
 }
 type IBinaryTree interface {

@@ -40,8 +40,7 @@ func (t *BinarySearchTree) Insert(key uint32, value interface{}) {
 	t.lock.Lock()
 	defer t.lock.Unlock()
 	node := new(Node)
-	node.Key = key
-	node.Value = value
+	node.Key, node.Value = key, value
 
 	if t.root == nil {
 		t.root = node
@@ -64,8 +63,49 @@ func (t *BinarySearchTree) Insert(key uint32, value interface{}) {
 	}
 }
 
+/**
+1、被删除节点是叶子结点
+  只需要把被删除节点的父节点指向该节点的指针置为nil
+2、被删除节点有且只有一个孩子
+  将被删除节点父结点的指针指向要删除结点的孩子结点；
+3、被删除节点有两个孩子
+  - 找到被删除节点的后继节点
+  - 复制后继节点到被删除节点的位置
+  - 删除后继节点在原来的位置
+*/
 func (t *BinarySearchTree) Delete(key uint32) interface{} {
-	panic("implement me")
+	//t.lock.Lock()
+	//defer t.lock.Unlock()
+	node := t.Search(key).(*Node)
+	if node == nil {
+		return nil
+	}
+	if node.left == nil && node.right == nil {
+		if node.parent.right == node {
+			node.parent.right = nil
+		} else {
+			node.parent.left = nil
+		}
+		node = nil
+	} else if node.left == nil || node.right == nil {
+		var reConnectedNode *Node
+		if node.left != nil {
+			reConnectedNode = node.left
+		} else {
+			reConnectedNode = node.right
+		}
+		if node.parent.right == node {
+			node.parent.right = reConnectedNode
+		} else {
+			node.parent.left = reConnectedNode
+		}
+	} else {
+		successor := t.Successor(node, t.root).(*Node)
+		_key, _value := successor.Key, successor.Value
+		t.Delete(successor.Key)
+		node.Key, node.Value = _key, _value
+	}
+	return node
 }
 
 // Predecessor 获取给定节点的前驱节点
