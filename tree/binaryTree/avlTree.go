@@ -1,6 +1,7 @@
 package binaryTree
 
 import (
+	"math"
 	"sync"
 )
 
@@ -21,7 +22,18 @@ func NewAVLTree() *AVLTree {
 }
 
 func (t *AVLTree) Height(node interface{}) int {
+	if node == nil {
+		return 0
+	}
 	return node.(*AVLNode).height
+}
+
+// BalanceFactor 计算平衡因子
+func (t *AVLTree) BalanceFactor(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	return t.Height(node.left) - t.Height(node.right)
 }
 
 func (t *AVLTree) IsNil(node interface{}) bool {
@@ -62,11 +74,23 @@ func (t *AVLTree) Successor(node interface{}, root interface{}) interface{} {
 }
 
 func (t *AVLTree) LeftRotate(node interface{}) interface{} {
-	panic("implement me")
+	n := node.(*AVLNode)
+	nr := n.right
+	reConnectNode := nr.left
+	nr.left, n.right = n, reConnectNode
+	n.height = int(math.Max(float64(t.Height(n.left)), float64(t.Height(n.right))) + 1)
+	nr.height = int(math.Max(float64(t.Height(nr.left)), float64(t.Height(nr.right))) + 1)
+	return nr
 }
 
 func (t *AVLTree) RightRotate(node interface{}) interface{} {
-	panic("implement me")
+	n := node.(*AVLNode)
+	nl := n.left
+	reConnectNode := nl.right
+	nl.right, n.left = n, reConnectNode
+	n.height = int(math.Max(float64(t.Height(n.left)), float64(t.Height(n.right))) + 1)
+	nl.height = int(math.Max(float64(t.Height(nl.left)), float64(t.Height(nl.right))) + 1)
+	return nl
 }
 
 func (t *AVLTree) LeftRightRotate(node interface{}) interface{} {
