@@ -94,11 +94,15 @@ func (t *AVLTree) RightRotate(node interface{}) interface{} {
 }
 
 func (t *AVLTree) LeftRightRotate(node interface{}) interface{} {
-	panic("implement me")
+	n := node.(*AVLNode)
+	n.left = t.LeftRotate(n.left).(*AVLNode)
+	return t.RightRotate(n)
 }
 
 func (t *AVLTree) RightLeftRotate(node interface{}) interface{} {
-	panic("implement me")
+	n := node.(*AVLNode)
+	n.right = t.RightRotate(n.right).(*AVLNode)
+	return t.LeftRotate(n)
 }
 
 func (t *AVLTree) Min(node interface{}) interface{} {
