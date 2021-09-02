@@ -17,6 +17,10 @@ type BinarySearchTree struct {
 	lock sync.Mutex
 }
 
+func (t *BinarySearchTree) Height(node interface{}) int {
+	panic("implement me")
+}
+
 func (t *BinarySearchTree) LeftRightRotate(node interface{}) interface{} {
 	panic("implement me")
 }
@@ -71,6 +75,7 @@ func (t *BinarySearchTree) Insert(key uint32, value interface{}) {
 	}
 }
 
+// Delete TODO 由于go没有实现可重入锁，该方法还有待优化
 /**
 1、被删除节点是叶子结点
   只需要把被删除节点的父节点指向该节点的指针置为nil

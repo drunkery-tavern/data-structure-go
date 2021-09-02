@@ -7,6 +7,7 @@ type binaryTreeEntry struct {
 type IBinaryTree interface {
 	IsNil(interface{}) bool
 	Root() interface{}
+	Height(interface{}) int
 	Search(uint32) interface{}
 	Insert(key uint32, value interface{})
 	Delete(uint32) interface{}
