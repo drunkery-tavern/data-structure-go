@@ -1,4 +1,4 @@
-package tree
+package binaryTree
 
 type binaryTreeEntry struct {
 	Key   uint32
@@ -14,6 +14,8 @@ type IBinaryTree interface {
 	Successor(interface{}, interface{}) interface{}
 	LeftRotate(interface{}) interface{}
 	RightRotate(interface{}) interface{}
+	LeftRightRotate(interface{}) interface{}
+	RightLeftRotate(interface{}) interface{}
 	Min(interface{}) interface{}
 	Max(interface{}) interface{}
 	PreOrderTraverse(interface{}, []interface{}) []interface{}

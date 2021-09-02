@@ -1,4 +1,4 @@
-package tree
+package binaryTree
 
 import (
 	"sync"
@@ -15,6 +15,14 @@ type Node struct {
 type BinarySearchTree struct {
 	root *Node
 	lock sync.Mutex
+}
+
+func (t *BinarySearchTree) LeftRightRotate(node interface{}) interface{} {
+	panic("implement me")
+}
+
+func (t *BinarySearchTree) RightLeftRotate(node interface{}) interface{} {
+	panic("implement me")
 }
 
 // IsNil 判断节点是否为nil
