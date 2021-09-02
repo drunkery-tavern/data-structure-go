@@ -22,11 +22,11 @@ func (t *BinarySearchTree) Height(node interface{}) int {
 }
 
 func (t *BinarySearchTree) LeftRightRotate(node interface{}) interface{} {
-	panic("implement me")
+	panic("binarySearchTree haven't implement LeftRightRotate method")
 }
 
 func (t *BinarySearchTree) RightLeftRotate(node interface{}) interface{} {
-	panic("implement me")
+	panic("binarySearchTree haven't implement RightLeftRotate method")
 }
 
 // IsNil 判断节点是否为nil
@@ -158,11 +158,11 @@ func (t *BinarySearchTree) Successor(node interface{}, root interface{}) interfa
 }
 
 func (t *BinarySearchTree) LeftRotate(node interface{}) interface{} {
-	panic("implement me")
+	panic("binarySearchTree haven't implement LeftRotate method")
 }
 
 func (t *BinarySearchTree) RightRotate(node interface{}) interface{} {
-	panic("implement me")
+	panic("binarySearchTree haven't implement RightRotate method")
 }
 
 func (t *BinarySearchTree) Min(node interface{}) interface{} {

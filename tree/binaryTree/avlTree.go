@@ -58,7 +58,13 @@ func (t *AVLTree) Search(key uint32) interface{} {
 }
 
 func (t *AVLTree) Insert(key uint32, value interface{}) {
-	panic("implement me")
+	node := new(AVLNode)
+	node.Key, node.Value = key, value
+	if t.root == nil {
+		t.root = node
+		node.height++
+	}
+
 }
 
 func (t *AVLTree) Delete(key uint32) interface{} {
