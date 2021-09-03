@@ -10,6 +10,7 @@ type AVLNode struct {
 	height int //节点的高度，用于计算父节点的平衡因子
 	left   *AVLNode
 	right  *AVLNode
+	parent *AVLNode
 }
 
 type AVLTree struct {
@@ -29,7 +30,7 @@ func (t *AVLTree) Height(node interface{}) int {
 }
 
 // BalanceFactor 计算平衡因子
-func (t *AVLTree) BalanceFactor(node *Node) int {
+func (t *AVLTree) BalanceFactor(node *AVLNode) int {
 	if node == nil {
 		return 0
 	}
@@ -63,8 +64,29 @@ func (t *AVLTree) Insert(key uint32, value interface{}) {
 	if t.root == nil {
 		t.root = node
 		node.height++
+	} else {
+		target := t.root
+		for cur := t.root; cur != nil; {
+			target = cur
+			if node.Key > cur.Key {
+				cur = cur.right
+			} else {
+				cur = cur.left
+			}
+		}
+		node.parent = target
+		var newNode *AVLNode
+		if node.Key > target.Key {
+			target.right = node
+			factor := t.BalanceFactor(node)
+			if factor == -2 {
+				//左旋
+				newNode = t.LeftRotate(node).(*AVLNode)
+			}
+		} else {
+			target.left = node
+		}
 	}
-
 }
 
 func (t *AVLTree) Delete(key uint32) interface{} {
